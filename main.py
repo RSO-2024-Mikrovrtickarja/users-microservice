@@ -12,7 +12,6 @@ from fastapi.security.oauth2 import OAuth2PasswordRequestForm
 from database import SessionDep
 from sqlmodel import select
 
-# TODO test with local database
 # TODO async?
 
 
@@ -65,7 +64,7 @@ def get_user(id: uuid.UUID, database: SessionDep):
 def login(
     database: SessionDep,
     user_cerd: OAuth2PasswordRequestForm = Depends(),
-):
+) -> schemas.Token:
     user = database.exec(
         select(models.User).where(models.User.email == user_cerd.username)
     ).first()
@@ -82,7 +81,7 @@ def login(
 
     access_token = oauth2.create_access_token(data={"user_id": user.id.hex})
 
-    return {"access_token": access_token, "token_type": "bearer"}
+    return schemas.Token(access_token=access_token, token_type="bearer")
 
 
 @users_app.post("/login/refresh")
