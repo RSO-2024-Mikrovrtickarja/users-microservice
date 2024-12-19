@@ -12,8 +12,6 @@ from fastapi.security.oauth2 import OAuth2PasswordRequestForm
 from database import SessionDep
 from sqlmodel import select
 
-# TODO async?
-
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):

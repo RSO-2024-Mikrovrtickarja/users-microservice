@@ -15,7 +15,7 @@ class Settings(BaseSettings):
     jwt_algorithm: str
     jwt_access_token_expire_minutes: int
 
-    model_config = SettingsConfigDict(env_file=DOTENV)
+    model_config = SettingsConfigDict(env_file=DOTENV, env_file_encoding="utf-8")
 
 
 settings = Settings()
