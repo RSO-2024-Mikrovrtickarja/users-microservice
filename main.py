@@ -2,7 +2,7 @@ from contextlib import asynccontextmanager
 from datetime import datetime
 import uuid
 import uvicorn
-from fastapi import FastAPI, Depends, status, HTTPException
+from fastapi import FastAPI, Depends, Response, status, HTTPException
 import schemas
 import models
 import utils
@@ -85,6 +85,12 @@ def login(
 @users_app.post("/login/refresh")
 def login_refresh():
     raise NotImplementedError
+
+
+
+@users_app.get("/health")
+def health_check():
+    return Response(status_code=200)
 
 
 if __name__ == "__main__":
