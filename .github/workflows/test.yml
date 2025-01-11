@@ -1,0 +1,41 @@
+name: Test
+
+on:
+    workflow_dispatch:
+    push:
+
+jobs:
+    test:
+        name: Run tests
+        runs-on: ubuntu-latest
+        timeout-minutes: 20
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+            
+            - name: Initialize PostgreSQL database
+              uses: ikalnytskyi/action-setup-postgres@v7
+              with:
+                  username: postgres
+                  password: postgres
+                  database: test_database
+                  port: 5432
+            
+            - name: Prepare Python environment
+              shell: bash
+              run: |
+                  poetry install --no-root --with test
+            
+            - name: Run pytest
+              shell: bash
+              env:
+                  DATABASE_HOSTNAME: localhost
+                  DATABASE_PORT: 5432
+                  DATABASE_USERNAME: postgres
+                  DATABASE_PASSWORD: postgres
+                  DATABASE_NAME: test_database
+                  JWT_SECRET_KEY: secretkey
+                  JWT_ALGORITHM: HS256
+                  JWT_ACCESS_TOKEN_EXPIRE_MINUTES: 60
+              run: |
+                  poetry run pytest
