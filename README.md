@@ -48,7 +48,7 @@ Do dokumentacije naše REST mikrostoritve lahko sedaj dostopamo na naslovu `http
 
 
 ### 2.1 Konfiguracija
-Ta mikrostoritev se konfigurira preko okoljskih spremenljivk, opisanih spodaj:
+To mikrostoritev se konfigurira preko okoljskih spremenljivk, opisanih spodaj:
 ```bash
 # Naslov (IP ali domena), kjer se nahaja baza PostgreSQL. 
 DATABASE_HOSTNAME=localhost
